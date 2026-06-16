@@ -37,7 +37,10 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
    # git worktree helper
    if [ -f ~/bin/wt ]; then
      source ~/bin/wt
-     alias wtt="wt -t"   # shorthand: create worktree + open tmux session
+     alias wtt="wt -t"          # shorthand: always open a tmux session
+     if [[ -n "$TMUX" ]]; then
+       alias wt="wt -t"         # inside tmux: auto-switch sessions on every navigation
+     fi
    fi
    ```
 
