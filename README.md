@@ -47,6 +47,16 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
    source ~/.profile   # or ~/.bashrc / ~/.zshrc
    ```
 
+## Demo
+
+![wt basic demo](demo.gif)
+
+*Create a worktree, fuzzy-navigate between worktrees, and delete one.*
+
+![wt tmux demo](demo-tmux.gif)
+
+*Create a worktree with a dedicated tmux session and switch between sessions.*
+
 ## Usage
 
 ```
