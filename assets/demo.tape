@@ -1,4 +1,4 @@
-Output demo.gif
+Output assets/demo.gif
 
 Set Shell "zsh"
 Set FontSize 16
@@ -10,11 +10,11 @@ Set TypingSpeed 60ms
 
 # Hidden setup: source wt, simple prompt, clean screen
 Hide
-Type "source /Users/agosdsc/git/wt/wt" Enter
+Type "source $(git rev-parse --show-toplevel)/wt" Enter
 Sleep 300ms
 Type "PS1='> '" Enter
 Sleep 200ms
-Type "cd /Users/agosdsc/git/wt" Enter
+Type "cd $(git rev-parse --show-toplevel)" Enter
 Sleep 200ms
 Type "clear" Enter
 Sleep 300ms
@@ -35,7 +35,7 @@ Sleep 2000ms
 
 # 3. Navigate back to main, then fuzzy-pick the worktree
 Hide
-Type "cd /Users/agosdsc/git/wt" Enter
+Type "cd $(git rev-parse --show-toplevel)" Enter
 Sleep 200ms
 Type "clear" Enter
 Sleep 300ms

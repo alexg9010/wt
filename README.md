@@ -49,11 +49,11 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
 
 ## Demo
 
-![wt basic demo](demo.gif)
+![wt basic demo](assets/demo.gif)
 
 *Create a worktree, fuzzy-navigate between worktrees, and delete one.*
 
-![wt tmux demo](demo-tmux.gif)
+![wt tmux demo](assets/demo-tmux.gif)
 
 *Create a worktree with a dedicated tmux session and switch between sessions.*
 

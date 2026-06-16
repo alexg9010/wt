@@ -1,4 +1,4 @@
-Output demo-tmux.gif
+Output assets/demo-tmux.gif
 
 Set Shell "zsh"
 Set FontSize 16
@@ -10,13 +10,13 @@ Set TypingSpeed 60ms
 
 # Hidden setup: source wt, start a named tmux session, set prompt
 Hide
-Type "source /Users/agosdsc/git/wt/wt" Enter
+Type "source $(git rev-parse --show-toplevel)/wt" Enter
 Sleep 200ms
-Type "cd /Users/agosdsc/git/wt" Enter
+Type "cd $(git rev-parse --show-toplevel)" Enter
 Sleep 200ms
 Type "tmux new-session -s 'wt(main)'" Enter
 Sleep 600ms
-Type "source /Users/agosdsc/git/wt/wt" Enter
+Type "source $(git rev-parse --show-toplevel)/wt" Enter
 Sleep 200ms
 Type "PS1='> '" Enter
 Sleep 200ms
@@ -31,7 +31,7 @@ Sleep 2500ms
 # We're now in the new tmux session 'wt(feature/dark-mode)'
 # Re-source wt and reset prompt (new shell in the new session)
 Hide
-Type "source /Users/agosdsc/git/wt/wt" Enter
+Type "source $(git rev-parse --show-toplevel)/wt" Enter
 Sleep 200ms
 Type "PS1='> '" Enter
 Sleep 200ms
