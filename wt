@@ -3,7 +3,6 @@
 set -o pipefail 2>/dev/null || true
 
 # Optional: set WORKTREE_ROOT to store worktrees outside the repo (default: <repo>/.worktrees)
-# Optional: set WT_TMUX_AUTOCD=1 to auto-switch tmux sessions when navigating inside tmux
 
 wt() {
   local create=false
@@ -78,7 +77,7 @@ USAGE
 
   _wt_navigate() {
     local wt_path_arg="$1"
-    if $tmux_session || [[ -n "$TMUX" && -n "${WT_TMUX_AUTOCD:-}" ]]; then
+    if $tmux_session; then
       _wt_tmux "$wt_path_arg"
     else
       cd "$wt_path_arg"
@@ -233,10 +232,6 @@ USAGE
 
   if ($create || $copy_envrc) && $delete; then
     echo "Error: -c/-e and -d are mutually exclusive"; return 1
-  fi
-
-  if $tmux_session; then
-    export WT_TMUX_AUTOCD=1
   fi
 
   root=$(_wt_worktree_paths 2>/dev/null | head -n 1)
