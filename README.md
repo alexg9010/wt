@@ -75,6 +75,7 @@ wt [-i] [-p] [-c [name]] [-e] [-t] [-d [path]] [-h]
 | `-e` | Copy `.envrc` from the repo root and run `direnv allow` (use with `-c`) |
 | `-t` | Open or attach a tmux session for the worktree (use with `-c`, or alone to select) |
 | `-d [path]` | Delete a worktree; fuzzy-selects if no path given, `'.'` for current |
+| `-k` | Kill all tmux sessions for this repo's worktrees |
 | `-h` | Show help |
 
 ### Examples

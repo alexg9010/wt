@@ -11,6 +11,7 @@ wt() {
   local pr=false
   local copy_envrc=false
   local tmux_session=false
+  local kill_sessions=false
   local name=""
   local target=""
   local root
@@ -18,7 +19,7 @@ wt() {
 
   _wt_usage() {
     cat <<USAGE
-Usage: wt [-i] [-p] [-c [name]] [-e] [-t] [-d [path]] [-h]
+Usage: wt [-i] [-p] [-c [name]] [-e] [-t] [-d [path]] [-k] [-h]
 
 Options:
   -i          Select and check out a GitHub issue (requires gh)
@@ -27,6 +28,7 @@ Options:
   -e          Copy .envrc from root and run direnv allow (use with -c)
   -t          Start a new tmux session for the worktree (use with -c, or alone to select)
   -d [path]   Delete a worktree (fuzzy select if no path given, use '.' for current)
+  -k          Kill all tmux sessions for this repo's worktrees
   -h          Show this help message
 USAGE
   }
@@ -213,7 +215,19 @@ USAGE
     fi
   }
 
-  
+  _wt_kill_sessions() {
+    local killed=0
+    while IFS= read -r wt_path; do
+      local session_name
+      session_name=$(_wt_session_name "$wt_path")
+      if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux kill-session -t "$session_name"
+        echo "Killed tmux session: $session_name"
+        ((killed++))
+      fi
+    done < <(_wt_worktree_paths)
+    [[ $killed -eq 0 ]] && echo "No active tmux sessions found for this repo"
+  }
 
   # --- parse args ---
 
@@ -225,6 +239,7 @@ USAGE
       -e) copy_envrc=true; shift ;;
       -t) tmux_session=true; shift ;;
       -d) delete=true; shift; [[ $# -gt 0 && ! "$1" =~ ^- ]] && { target="$1"; shift; } ;;
+      -k) kill_sessions=true; shift ;;
       -h) _wt_usage; return 0 ;;
       *) _wt_usage; return 1 ;;
     esac
@@ -240,10 +255,11 @@ USAGE
 
   # --- dispatch ---
 
-  if $issue;  then _wt_issue;  return $?; fi
-  if $pr;     then _wt_pr;     return $?; fi
-  if $create; then _wt_create; return $?; fi
-  if $delete; then _wt_delete; return $?; fi
+  if $issue;         then _wt_issue;         return $?; fi
+  if $pr;            then _wt_pr;            return $?; fi
+  if $create;        then _wt_create;        return $?; fi
+  if $delete;        then _wt_delete;        return $?; fi
+  if $kill_sessions; then _wt_kill_sessions; return $?; fi
 
   # default: select and navigate to existing worktree
   command -v fzf >/dev/null 2>&1 || {
