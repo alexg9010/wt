@@ -58,6 +58,7 @@ USAGE
   }
 
   _wt_tmux() {
+    command -v tmux >/dev/null 2>&1 || { echo "Error: tmux is required for session switching"; return 1; }
     local wt_path_arg="$1"
     local session_name
     session_name=$(_wt_session_name "$wt_path_arg")
@@ -144,6 +145,7 @@ USAGE
       git worktree add "$new_path" -b "$name" || return 1
     fi
     if $copy_envrc && [[ -f "$root/.envrc" ]]; then
+      command -v direnv >/dev/null 2>&1 || { echo "Error: direnv is required for -e"; return 1; }
       cp "$root/.envrc" "$new_path/.envrc"
       direnv allow "$new_path/.envrc"
     fi
@@ -216,6 +218,7 @@ USAGE
   }
 
   _wt_kill_sessions() {
+    command -v tmux >/dev/null 2>&1 || { echo "Error: tmux is required for -k"; return 1; }
     local killed=0
     while IFS= read -r wt_path; do
       local session_name
