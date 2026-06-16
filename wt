@@ -235,6 +235,10 @@ USAGE
     echo "Error: -c/-e and -d are mutually exclusive"; return 1
   fi
 
+  if $tmux_session; then
+    export WT_TMUX_AUTOCD=1
+  fi
+
   root=$(_wt_worktree_paths 2>/dev/null | head -n 1)
   [[ -z "$root" ]] && { echo "Error: not in a git repo"; return 1; }
   base="${WORKTREE_ROOT:-$root/.worktrees}"
