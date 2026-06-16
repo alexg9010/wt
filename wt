@@ -203,8 +203,10 @@ USAGE
     main_wt=$(_wt_worktree_paths | head -n 1)
     local session_name
     session_name=$(_wt_session_name "$to_delete")
-    [[ "$(_wt_realpath .)" == "$to_delete"* ]] && cd "$main_wt"
-    git worktree remove "$to_delete"
+    local cur_path
+    cur_path=$(_wt_realpath .)
+    [[ "$cur_path" == "$to_delete" || "$cur_path" == "$to_delete/"* ]] && cd "$main_wt"
+    git worktree remove "$to_delete" || return 1
     if tmux has-session -t "$session_name" 2>/dev/null; then
       tmux kill-session -t "$session_name"
       echo "Killed tmux session: $session_name"
