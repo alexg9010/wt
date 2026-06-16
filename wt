@@ -3,6 +3,7 @@
 set -o pipefail 2>/dev/null || true
 
 # Optional: set WORKTREE_ROOT to store worktrees outside the repo (default: <repo>/.worktrees)
+# Optional: set WT_TMUX_AUTOCD=1 to auto-switch tmux sessions when navigating inside tmux
 
 wt() {
   local create=false
