@@ -27,7 +27,7 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
 1. Copy `wt` to `~/bin/` (or anywhere on your `PATH`):
 
    ```sh
-   curl -fsSL https://raw.githubusercontent.com/agosdsc/wt/main/wt -o ~/bin/wt
+   curl -fsSL https://raw.githubusercontent.com/alexg9010/wt/main/wt -o ~/bin/wt
    chmod +x ~/bin/wt
    ```
 
