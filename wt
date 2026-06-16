@@ -77,7 +77,7 @@ USAGE
 
   _wt_navigate() {
     local wt_path_arg="$1"
-    if $tmux_session; then
+    if $tmux_session || [[ -n "$TMUX" ]]; then
       _wt_tmux "$wt_path_arg"
     else
       cd "$wt_path_arg"
