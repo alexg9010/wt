@@ -110,11 +110,15 @@ USAGE
       command -v fzf >/dev/null 2>&1 || {
         echo "Error: fzf is required when no branch name is provided"; return 1;
       }
-      name=$(git branch -a --format='%(refname:short)' \
+      local fzf_out fzf_exit
+      fzf_out=$(git branch -a --format='%(refname:short)' \
         | sed 's|^origin/||' \
         | grep -v '^HEAD$' \
         | sort -u \
-        | fzf --height 40% --reverse --prompt="branch> " --print-query | tail -1)
+        | fzf --height 40% --reverse --prompt="branch> " --print-query)
+      fzf_exit=$?
+      [[ $fzf_exit -ge 130 ]] && return 0
+      name=$(printf '%s' "$fzf_out" | tail -1)
       [[ -z "$name" ]] && return 0
     fi
     [[ ! -d "$base" ]] && _wt_init "$base" >/dev/null
