@@ -172,15 +172,15 @@ USAGE
     [[ -z "$pr_branch" ]] && { echo "Error: could not resolve branch for PR #$pr_num"; return 1; }
     [[ ! -d "$base" ]] && _wt_init "$base" >/dev/null
     local new_path="$base/pr/$pr_num"
-    if [[ -d "$new_path" ]]; then
+    if _wt_worktree_paths | grep -qxF "$new_path"; then
       echo "Worktree for PR #$pr_num already exists at $new_path"
       _wt_navigate "$new_path"
       return 0
     fi
     if git show-ref --verify --quiet "refs/heads/pr/$pr_num"; then
-      git worktree add "$new_path" "pr/$pr_num"
+      git worktree add "$new_path" "pr/$pr_num" || return 1
     else
-      git worktree add --track -b "pr/$pr_num" "$new_path" "origin/$pr_branch"
+      git worktree add --track -b "pr/$pr_num" "$new_path" "origin/$pr_branch" || return 1
     fi
     _wt_navigate "$new_path"
   }
