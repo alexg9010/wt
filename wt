@@ -51,7 +51,7 @@ USAGE
     local repo_name
     repo_name=$(basename "$main_wt" | tr '.' '_')
     local branch_name
-    branch_name=$(git -C "$wt_path_arg" rev-parse --abbrev-ref HEAD 2>/dev/null)
+    branch_name=$(git -C "$wt_path_arg" rev-parse --abbrev-ref HEAD 2>/dev/null | tr '/' '-')
     echo "${repo_name}(${branch_name})"
   }
 
