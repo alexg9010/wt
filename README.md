@@ -99,6 +99,7 @@ wt -d .
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `WORKTREE_ROOT` | `<repo>/.worktrees` | Directory where worktrees are created |
+| `WT_TMUX_AUTOCD` | *(unset)* | Set to any value to auto-switch tmux sessions when navigating inside tmux (implies `-t`) |
 
 The worktree directory is automatically added to `.gitignore` if it lives inside the repo.
 
