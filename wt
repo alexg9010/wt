@@ -135,11 +135,11 @@ USAGE
       return 0
     fi
     if git show-ref --verify --quiet "refs/heads/$name"; then
-      git worktree add "$new_path" "$name"
+      git worktree add "$new_path" "$name" || return 1
     elif git show-ref --verify --quiet "refs/remotes/origin/$name"; then
-      git worktree add --track -b "$name" "$new_path" "origin/$name"
+      git worktree add --track -b "$name" "$new_path" "origin/$name" || return 1
     else
-      git worktree add "$new_path" -b "$name"
+      git worktree add "$new_path" -b "$name" || return 1
     fi
     if $copy_envrc && [[ -f "$root/.envrc" ]]; then
       cp "$root/.envrc" "$new_path/.envrc"
