@@ -10,7 +10,7 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
 - Open each worktree in a dedicated, named tmux session
 - Copy `.envrc` and run `direnv allow` automatically
 - Delete worktrees and their tmux sessions in one step
-- Works whether sourced as a shell function or run as a script
+- Designed to be sourced as a shell function
 
 ## Dependencies
 
@@ -24,19 +24,18 @@ A lightweight bash/zsh shell function for managing [git worktrees](https://git-s
 
 ## Installation
 
-1. Copy `wt` to `~/bin/` (or anywhere on your `PATH`):
+1. Download `wt.sh` to `~/bin/`:
 
    ```sh
-   curl -fsSL https://raw.githubusercontent.com/alexg9010/wt/main/wt -o ~/bin/wt
-   chmod +x ~/bin/wt
+   curl -fsSL https://raw.githubusercontent.com/alexg9010/wt/main/wt.sh -o ~/bin/wt.sh
    ```
 
 2. Add the following to your `~/.profile`, `~/.bashrc`, or `~/.zshrc`:
 
    ```sh
    # git worktree helper
-   if [ -f ~/bin/wt ]; then
-     source ~/bin/wt
+   if [ -f ~/bin/wt.sh ]; then
+     source ~/bin/wt.sh
      alias wtt="wt -t"          # shorthand: always open a tmux session
      if [[ -n "$TMUX" ]]; then
        alias wt="wt -t"         # inside tmux: auto-switch sessions on every navigation
