@@ -119,6 +119,10 @@ The worktree directory is automatically added to `.gitignore` if it lives inside
 
 Sessions are named `<repo>(<branch>)`, e.g. `myproject(feature-login)`. Deleting a worktree also kills its tmux session.
 
+## Inspiration
+
+Inspired by [git worktree fzf helper](https://brtkwr.com/posts/2025-12-17-git-worktree-fzf-helper/) by brtkwr.
+
 ## License
 
 MIT
